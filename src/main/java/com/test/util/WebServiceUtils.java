@@ -2,24 +2,13 @@ package com.test.util;
 
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
-
 import javax.xml.namespace.QName;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author liuyh
  * @date 2019/4/1110:19
  */
 public class WebServiceUtils {
-
-    private static Map<Object, Object> factoryMap = new HashMap<Object, Object>();
-
-    static {
-        factoryMap.put("vehicleLogin", "vehicleLogin");
-        factoryMap.put("uploadInspectionResult", "UploadInspectionResult");
-    }
-
     /**
      * @param wsdlUrl         wsdl的地址：http://localhost:8001/demo/HelloServiceDemoUrl?wsdl
      * @param methodName      调用方法名称 selectOrderInfo
@@ -40,6 +29,7 @@ public class WebServiceUtils {
             //TODD:记录日志
             System.out.println("webService远程方法："+methodName+"执行失败, 原因是"+ e.getMessage());
         }
+        System.out.println("result=="+result[0]);
         return result[0];
     }
 
