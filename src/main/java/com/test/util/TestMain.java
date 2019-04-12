@@ -1,11 +1,11 @@
 package com.test.util;
 
 import com.test.dto.VehicleLoginDTO;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.CompactWriter;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.io.StringWriter;
 
 /**
  * @author DELL
@@ -15,18 +15,14 @@ import java.lang.reflect.Method;
  * @date 2019/4/1218:28
  */
 public class TestMain {
-    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static void main(String[] args) {
         VehicleLoginDTO vehicleLoginDTO=new VehicleLoginDTO();
-        Field[] fields = VehicleLoginDTO.class.getDeclaredFields();
-        vehicleLoginDTO.setAutomobileOdometer(111111);
-        vehicleLoginDTO.setIsESPDown("Y");
-        for (Field field : fields)
-        {
-            byte[] items =field.getName().getBytes();
-            items[0] = (byte) ((char) items[0] - 'a' + 'A');
-            Method m = VehicleLoginDTO.class.getMethod("get" + new String(items));
+        vehicleLoginDTO.setAutomobileOdometer(12);
+        vehicleLoginDTO.setBatteryCapacity(0.0);
+        XStream xStream=new XStream(new DomDriver("utf-8"));
+        xStream.processAnnotations(VehicleLoginDTO.class);
+        String xml=xStream.toXML(vehicleLoginDTO);
+        System.out.println(xml);
 
-            System.out.println(m.invoke(vehicleLoginDTO));
-        }
     }
 }

@@ -3,16 +3,18 @@ package com.test.dto;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 车辆检测登录
  *
  * @author liuyh
- * @date 2019/4/1114:30
+ * @date 2019/4/11 14:30
  */
+@XStreamAlias("request")
 @Data
-public class VehicleLoginDTO {
+public class VehicleLoginDTO implements Serializable {
     /**
      * 登录用户名
      */
@@ -349,3 +351,4 @@ public class VehicleLoginDTO {
     public String fuelSpecification;
 
 }
+
