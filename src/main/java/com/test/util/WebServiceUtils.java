@@ -33,13 +33,6 @@ public class WebServiceUtils {
         return result.length == 0 ? null : result[0];
     }
 
-
-    public static String splicingXMLParas(String fd)
-    {
-
-        return null;
-    }
-
     public static void main(String[] args) throws Exception {
 
         //获取字典表

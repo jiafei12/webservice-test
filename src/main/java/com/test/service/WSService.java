@@ -16,7 +16,7 @@ public interface WSService {
      * @param vehicleLoginDTO：车辆检测登录信息资料
      * @return ResponseBuilder
      */
-    ResponseBuilder vehicleLogin(VehicleLoginDTO vehicleLoginDTO);
+    ResponseBuilder vehicleLogin(VehicleLoginDTO vehicleLoginDTO) throws Exception;
 
     /**
      * 上传检测结果
