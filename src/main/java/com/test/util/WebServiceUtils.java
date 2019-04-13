@@ -36,11 +36,11 @@ public class WebServiceUtils {
     public static void main(String[] args) throws Exception {
 
         //获取字典表
-        WebServiceUtils.dynamicCallWebServiceByCXF("http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl", "GetBaseTypeInfo",
-                "http://impl.synToCity.synchrodata.daniu.com/", new Object[]{});
+     /**   WebServiceUtils.dynamicCallWebServiceByCXF("http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl", "GetBaseTypeInfo",
+                "http://impl.synToCity.synchrodata.daniu.com/", new Object[]{});**/
 
         // 车辆检测登陆测试
- /*       Object[] params = new Object[]{"<?xml version=\"1.0\" encoding=\"utf-8\" ?><request>" +
+       Object[] params = new Object[]{"<?xml version=\"1.0\" encoding=\"utf-8\" ?><request>" +
                 "<uid> MJ </uid>\n" +
                 "<pwd> 123456 </pwd>\n" +
                 "<unitid>32020022</unitid>\n" +
@@ -91,9 +91,9 @@ public class WebServiceUtils {
                 "<zsxxdz></zsxxdz>\n" +
                 "<sjhm></sjhm>" +
                 "</request>"};
-        WebServiceUtils.dynamicCallWebServiceByCXF("http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl", "vehiclelogin",
-                "http://synToCity.synchrodata.daniu.com/", params);*/
-
+       Object tt=WebServiceUtils.dynamicCallWebServiceByCXF("http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl", "vehiclelogin",
+                "http://synToCity.synchrodata.daniu.com/", params);
+        System.out.println(tt.toString());
         //获取待检测列表
         /*Object[] params1= new Object[]{"","32020022"};
         WebServiceUtils.dynamicCallWebServiceByCXF("http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl", "GetCheckList",

@@ -1,5 +1,12 @@
 package com.test.util;
 
+import com.test.dto.VehicleLoginDTO;
+import com.test.helper.MarshallerListener;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,8 +55,23 @@ public class XmlUtils {
         return xmlBuffer;
     }
 
+    public static String beanToXml(Object bean) throws JAXBException {
+        JAXBContext context=JAXBContext.newInstance(bean.getClass());
+        Marshaller marshaller=context.createMarshaller();
+        MarshallerListener marshallerListener=new MarshallerListener();
+        marshaller.setListener(marshallerListener);
+        marshaller.setProperty(Marshaller.JAXB_ENCODING,"UTF-8");
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        ByteArrayOutputStream xmlOutStream=new ByteArrayOutputStream();
+        marshaller.marshal(bean,xmlOutStream);
+        return new String(xmlOutStream.toByteArray());
+
+
+    }
     public static void main(String[] args) {
 
 
     }
 }
+
+

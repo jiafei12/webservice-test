@@ -23,24 +23,16 @@ import java.io.StringWriter;
  */
 public class TestMain {
     public static void main(String[] args) throws JAXBException {
-        VehicleLoginDTO1 vehicleLoginDTO1=new VehicleLoginDTO1();
+        VehicleLoginDTO1 vehicleLoginDTO1 = new VehicleLoginDTO1();
         vehicleLoginDTO1.setAutomobileOdometer(12);
         vehicleLoginDTO1.setBatteryCapacity(0.0);
-        XStream xStream=new XStream(new DomDriver("utf-8"));
+        XStream xStream = new XStream(new DomDriver("utf-8"));
         xStream.processAnnotations(VehicleLoginDTO.class);
-        String xml=xStream.toXML(vehicleLoginDTO1);
+        String xml = xStream.toXML(vehicleLoginDTO1);
         //System.out.println(xml);
+        VehicleLoginDTO vehicleLoginDTO = new VehicleLoginDTO();
+        vehicleLoginDTO.setBenchmarkQuality("dada");
+        System.out.println(XmlUtils.beanToXml(vehicleLoginDTO));
 
-        VehicleLoginDTO vehicleLoginDTO=new VehicleLoginDTO();
-        vehicleLoginDTO.setBenchmarkQuality("4343");
-        JAXBContext context=JAXBContext.newInstance(VehicleLoginDTO.class);
-        Marshaller marshaller=context.createMarshaller();
-        MarshallerListener marshallerListener=new MarshallerListener();
-        marshaller.setListener(marshallerListener);
-        marshaller.setProperty(Marshaller.JAXB_ENCODING,"UTF-8");
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        ByteArrayOutputStream xmlOutStream=new ByteArrayOutputStream();
-        marshaller.marshal(vehicleLoginDTO,xmlOutStream);
-        System.out.println(new String(xmlOutStream.toByteArray()));
     }
 }
