@@ -12,6 +12,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.StringWriter;
 
 /**
@@ -22,7 +23,7 @@ import java.io.StringWriter;
  * @date 2019/4/1218:28
  */
 public class TestMain {
-    public static void main(String[] args) throws JAXBException {
+    public static void main(String[] args) throws JAXBException, IOException {
         VehicleLoginDTO1 vehicleLoginDTO1 = new VehicleLoginDTO1();
         vehicleLoginDTO1.setAutomobileOdometer(12);
         vehicleLoginDTO1.setBatteryCapacity(0.0);
@@ -32,7 +33,7 @@ public class TestMain {
         //System.out.println(xml);
         VehicleLoginDTO vehicleLoginDTO = new VehicleLoginDTO();
         vehicleLoginDTO.setBenchmarkQuality("dada");
-        System.out.println(XmlUtils.beanToXml(vehicleLoginDTO));
+        System.out.println(XmlUtils.beanToXml(vehicleLoginDTO,""));
 
     }
 }

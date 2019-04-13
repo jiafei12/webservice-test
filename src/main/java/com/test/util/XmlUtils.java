@@ -1,13 +1,12 @@
 package com.test.util;
 
-import com.test.dto.VehicleLoginDTO;
 import com.test.helper.MarshallerListener;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -25,9 +24,10 @@ public class XmlUtils {
 
     /**
      * 将map数据转换为Xml格式数据
-     * @param xmlStatement xml声明
-     * @param otherElement 业务元素
-     * @param rootElement  根元素
+     *
+     * @param xmlStatement  xml声明
+     * @param otherElement  业务元素
+     * @param rootElement   根元素
      * @param nestedElement 嵌套元素
      * @return 具有xml格式的String
      */
@@ -55,19 +55,33 @@ public class XmlUtils {
         return xmlBuffer;
     }
 
-    public static String beanToXml(Object bean) throws JAXBException {
-        JAXBContext context=JAXBContext.newInstance(bean.getClass());
-        Marshaller marshaller=context.createMarshaller();
-        MarshallerListener marshallerListener=new MarshallerListener();
+    /**
+     * 通过JAXB将bean根据注解转换为xml格式的字符串
+     *
+     * @param bean              根据bean格式需要转换为Xml格式的javaBean
+     * @param customizeFragment 自定义xml的声明文件, 传入null即为使用JAXB默认的头文件
+     * @return 转换后的xml
+     * @throws JAXBException
+     */
+    public static String beanToXml(Object bean, String customizeFragment) throws JAXBException, IOException {
+        JAXBContext context = JAXBContext.newInstance(bean.getClass());
+        Marshaller marshaller = context.createMarshaller();
+        MarshallerListener marshallerListener = new MarshallerListener();
         marshaller.setListener(marshallerListener);
-        marshaller.setProperty(Marshaller.JAXB_ENCODING,"UTF-8");
+        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        ByteArrayOutputStream xmlOutStream=new ByteArrayOutputStream();
-        marshaller.marshal(bean,xmlOutStream);
+        ByteArrayOutputStream xmlOutStream = new ByteArrayOutputStream();
+        if (customizeFragment != null) {
+            marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+            xmlOutStream.write(customizeFragment.getBytes(StandardCharsets.UTF_8));
+        }
+        marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
+        marshaller.marshal(bean, xmlOutStream);
         return new String(xmlOutStream.toByteArray());
 
 
     }
+
     public static void main(String[] args) {
 
 
