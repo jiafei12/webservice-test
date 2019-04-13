@@ -1,10 +1,17 @@
 package com.test.util;
 
 import com.test.dto.VehicleLoginDTO;
+import com.test.dto.VehicleLoginDTO1;
+import com.test.helper.MarshallerListener;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.CompactWriter;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import java.io.ByteArrayOutputStream;
 import java.io.StringWriter;
 
 /**
@@ -15,14 +22,25 @@ import java.io.StringWriter;
  * @date 2019/4/1218:28
  */
 public class TestMain {
-    public static void main(String[] args) {
-        VehicleLoginDTO vehicleLoginDTO=new VehicleLoginDTO();
-        vehicleLoginDTO.setAutomobileOdometer(12);
-        vehicleLoginDTO.setBatteryCapacity(0.0);
+    public static void main(String[] args) throws JAXBException {
+        VehicleLoginDTO1 vehicleLoginDTO1=new VehicleLoginDTO1();
+        vehicleLoginDTO1.setAutomobileOdometer(12);
+        vehicleLoginDTO1.setBatteryCapacity(0.0);
         XStream xStream=new XStream(new DomDriver("utf-8"));
         xStream.processAnnotations(VehicleLoginDTO.class);
-        String xml=xStream.toXML(vehicleLoginDTO);
-        System.out.println(xml);
+        String xml=xStream.toXML(vehicleLoginDTO1);
+        //System.out.println(xml);
 
+        VehicleLoginDTO vehicleLoginDTO=new VehicleLoginDTO();
+        vehicleLoginDTO.setBenchmarkQuality("4343");
+        JAXBContext context=JAXBContext.newInstance(VehicleLoginDTO.class);
+        Marshaller marshaller=context.createMarshaller();
+        MarshallerListener marshallerListener=new MarshallerListener();
+        marshaller.setListener(marshallerListener);
+        marshaller.setProperty(Marshaller.JAXB_ENCODING,"UTF-8");
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        ByteArrayOutputStream xmlOutStream=new ByteArrayOutputStream();
+        marshaller.marshal(vehicleLoginDTO,xmlOutStream);
+        System.out.println(new String(xmlOutStream.toByteArray()));
     }
 }
