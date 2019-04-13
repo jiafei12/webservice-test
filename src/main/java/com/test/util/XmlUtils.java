@@ -1,6 +1,7 @@
 package com.test.util;
 
 import com.test.helper.MarshallerListener;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -58,7 +59,7 @@ public class XmlUtils {
     /**
      * 通过JAXB将bean根据注解转换为xml格式的字符串
      *
-     * @param bean              根据bean格式需要转换为Xml格式的javaBean
+     * @param bean   根据bean格式需要转换为Xml格式的javaBean
      * @param customizeFragment 自定义xml的声明文件, 传入null即为使用JAXB默认的头文件
      * @return 转换后的xml
      * @throws JAXBException
@@ -78,8 +79,6 @@ public class XmlUtils {
         marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
         marshaller.marshal(bean, xmlOutStream);
         return new String(xmlOutStream.toByteArray());
-
-
     }
 
     public static void main(String[] args) {
