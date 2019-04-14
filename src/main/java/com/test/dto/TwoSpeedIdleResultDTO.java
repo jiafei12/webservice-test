@@ -6,7 +6,6 @@ import org.apache.tools.ant.types.resources.selectors.Date;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 //TODO:补充备注
 
 /**
@@ -54,11 +53,13 @@ public class TwoSpeedIdleResultDTO {
     /**
      * 车辆编码
      */
+    @XmlElement(name="vehicle_id")
     public String vehicleCode;
 
     /**
      * 车架号
      */
+    @XmlElement(name="vin")
     public String vin;
 
     /**
