@@ -52,7 +52,9 @@ public class VehicleLoginDTO implements Serializable {
     @XmlElement(name = "clsbdh")
     public String vin;
     /**
-     * 检测类型:  1:年检, 2:新注册车辆 ,3:外地车转入, 4:实验比对
+     *
+     *
+     * 类型:  1:年检, 2:新注册车辆 ,3:外地车转入, 4:实验比对
      */
     @XmlElement(name = "checktype")
     public String checkType;

@@ -2,15 +2,13 @@ package com.test.service.impl;
 
 import com.test.ResponseBuilder;
 import com.test.dto.Result.VehicleLoginReponse;
+import com.test.dto.Result.VehicleLoginResult;
 import com.test.dto.VehicleLoginDTO;
 import com.test.service.WSService;
 import com.test.util.JAXBUtils;
 import com.test.util.WebServiceUtils;
-import org.apache.poi.ss.formula.functions.T;
+import org.springframework.beans.BeanUtils;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author liuyh
@@ -20,7 +18,7 @@ import java.util.Map;
 public class WSServiceImpl implements WSService {
     //TODO: 读取配置文件
     private static String wsdlUrl = "http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl";
-    private static String methodName = "vehiclelogin";
+    private static String vehicleLoginMethodName = "vehiclelogin";
     private static String targetNamespace = "http://synToCity.synchrodata.daniu.com/";
     private static String xmlFragment = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
@@ -28,34 +26,35 @@ public class WSServiceImpl implements WSService {
     //TODO:处理下层抛出的异常，记录日志
     public ResponseBuilder vehicleLogin(VehicleLoginDTO vehicleLoginDTO) throws Exception {
         String xmlParams = JAXBUtils.beanToXml(vehicleLoginDTO, xmlFragment);
-        Object result = WebServiceUtils.dynamicCallWebServiceByCXF(wsdlUrl, methodName, targetNamespace, new Object[]{xmlParams});
+        Object result = WebServiceUtils.dynamicCallWebServiceByCXF(wsdlUrl, vehicleLoginMethodName, targetNamespace, new Object[]{xmlParams});
         //TODO：处理结果, 将每个返回值对应成javabean
-        ResponseBuilder builder = new ResponseBuilder();
-      //  VehicleLoginReponse vehicleLoginReponse=JAXBUtils.xmlToBean(String.valueOf(result), VehicleLoginReponse.class);
-        VehicleLoginReponse vehicleLoginReponse = new VehicleLoginReponse();
-        vehicleLoginReponse.setCheckNumber("你好呀");
-        vehicleLoginReponse.setLicensePlate("我真的很好");
-  //      builder=WSServiceImpl.handleMethodResult(vehicleLoginReponse);
-        /*VehicleLoginReponse vehicleLoginReponse = new VehicleLoginReponse();
-        vehicleLoginReponse.setCheckNumber("你好呀");
-        vehicleLoginReponse.setLicensePlate("我真的很好");
-        *//*boolean falseFlag="0".equals(vehicleLoginReponse.getStatus())?true:false;
-        if(falseFlag)
-        {
-            builder.setCode(0);
-            builder.setMessage(vehicleLoginReponse.getMessage());
-        }else
-        {*//*
-        builder.setCode(1);
-        Map<Object, Object> returnMap = new HashMap<>();
-        System.out.println(vehicleLoginReponse.checkNumber);
-        returnMap.put("checkNumber", vehicleLoginReponse.getCheckNumber());
-        returnMap.put(vehicleLoginReponse.licensePlate, vehicleLoginReponse.getLicensePlate());
-        builder.setData(returnMap);
-        // }*/
+        ResponseBuilder builder = handleVehicleLoginResult(result);
         return builder;
     }
 
+    private ResponseBuilder handleVehicleLoginResult(Object result) throws Exception {
+        ResponseBuilder builder = new ResponseBuilder();
+        VehicleLoginResult vehicleLoginResult = JAXBUtils.xmlToBean(String.valueOf(result), VehicleLoginResult.class);
+        //  builder=WSServiceImpl.handleMethodResult(vehicleLoginReponse);
+        boolean falseFlag = "0".equals(vehicleLoginResult.getStatus()) ? true : false;
+        if (falseFlag) {
+            builder.setCode(0);
+            builder.setMessage(vehicleLoginResult.getMessage());
+        } else {
+            builder.setCode(1);
+            VehicleLoginReponse vehicleLoginReponse=new VehicleLoginReponse();
+            BeanUtils.copyProperties(vehicleLoginResult,vehicleLoginReponse);
+           // builder.setData(vehicleLoginReponse);
+        }
+        return builder;
+    }
+
+    /**
+     * 封装统一返回值结果
+     *
+     * @param args
+     * @throws Exception
+     */
     /*private static ResponseBuilder handleMethodResult(Object clazz) throws IllegalAccessException {
         ResponseBuilder builder = new ResponseBuilder();
         Field[] fields = clazz.getClass().getDeclaredFields();
@@ -124,6 +123,6 @@ public class WSServiceImpl implements WSService {
         vehicleLoginDTO.setBenchmarkQuality("31");
         ResponseBuilder builder = wsService.vehicleLogin(vehicleLoginDTO);
         System.out.println(builder.getCode());
-        System.out.println(((Map) builder.getData()).get("checkNumber"));
+        System.out.println(builder.getData());
     }
 }

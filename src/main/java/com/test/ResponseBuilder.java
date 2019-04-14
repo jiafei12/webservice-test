@@ -23,5 +23,5 @@ public class ResponseBuilder implements Serializable {
     /**
      * 响应数据
      **/
-    public Object data;
+    public  T data;
 }

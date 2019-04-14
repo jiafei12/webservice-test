@@ -56,10 +56,11 @@ public class TestMain {
         System.out.println(JAXBUtils.beanToXml(twoSpeedIdleDTO, null));
 
 */
-        JAXBContext context = JAXBContext.newInstance(VehicleLoginReponse.class);
+    /*    JAXBContext context = JAXBContext.newInstance(VehicleLoginReponse.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><response><status>0</status><message>检测软件上传数据错误: 节点 '#AnonType_checktyperequest'仅支持数据或数据格式如'1|2|3|4', 值 '' 不正确。</message></response>\n";
        // VehicleLoginReponse person = (VehicleLoginReponse) unmarshaller.unmarshal(new StringReader(xml));
         System.out.println(JAXBUtils.xmlToBean(xml,VehicleLoginReponse.class).getMessage());
+    */
     }
 }
