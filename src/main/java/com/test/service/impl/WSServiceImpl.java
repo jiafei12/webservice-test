@@ -13,12 +13,14 @@ import com.test.util.JAXBUtils;
 import com.test.util.WebServiceUtils;
 import org.springframework.beans.BeanUtils;
 
+import javax.xml.bind.JAXBException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author liuyh
- * @date 2019/4/1114:22
+ * @date 2019/4/11  14:22
  */
 public class WSServiceImpl implements WSService {
     //TODO: 读取配置文件
@@ -41,22 +43,49 @@ public class WSServiceImpl implements WSService {
 
     @Override
     //TODO:处理下层抛出的异常，记录日志
-    public ResponseBuilder vehicleLogin(VehicleLoginDTO vehicleLoginDTO) throws Exception {
-        String xmlParams = JAXBUtils.beanToXml(vehicleLoginDTO, xmlFragment);
-        Object result = WebServiceUtils.dynamicCallWebServiceByCXF(wsdlUrl, vehicleLoginMethodName, targetNamespace, new Object[]{xmlParams});
+    public ResponseBuilder vehicleLogin(VehicleLoginDTO vehicleLoginDTO) {
+        String xmlParams = null;
+        try {
+            xmlParams = JAXBUtils.beanToXml(vehicleLoginDTO, xmlFragment);
+        } catch (JAXBException e) {
+            //TODO:日志记录
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO:打印日志
+            e.printStackTrace();
+        }
+        Object result = null;
+        try {
+            result = WebServiceUtils.dynamicCallWebServiceByCXF(wsdlUrl, vehicleLoginMethodName, targetNamespace, new Object[]{xmlParams});
+        } catch (Exception e) {
+            //TODO：日志打印
+            e.printStackTrace();
+        }
         //TODO：处理结果, 将每个返回值对应成javabean
         return handleVehicleLoginResult(result);
     }
 
     @Override
-    public ResponseBuilder uploadInspectionResult(String token, String organizationNumber, Object bean, int checkMethod) throws Exception {
-        String xmlParams = JAXBUtils.beanToXml(bean, xmlFragment);
+    public ResponseBuilder uploadInspectionResult(String token, String organizationNumber, Object bean, int checkMethod){
+        String xmlParams = null;
+        try {
+            xmlParams = JAXBUtils.beanToXml(bean, xmlFragment);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println(xmlParams);
-        Object result = WebServiceUtils.dynamicCallWebServiceByCXF(wsdlUrl, vehicleLoginMethodName, targetNamespace, new Object[]{token, organizationNumber, xmlParams, checkMethod});
+        Object result = null;
+        try {
+            result = WebServiceUtils.dynamicCallWebServiceByCXF(wsdlUrl, vehicleLoginMethodName, targetNamespace, new Object[]{token, organizationNumber, xmlParams, checkMethod});
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return handleUploadInspectionResult(result);
     }
 
-    private ResponseBuilder handleVehicleLoginResult(Object result) throws Exception {
+    private ResponseBuilder handleVehicleLoginResult(Object result){
         ResponseBuilder builder = new ResponseBuilder();
         VehicleLoginResult vehicleLoginResult = JAXBUtils.xmlToBean(String.valueOf(result), VehicleLoginResult.class);
         System.out.println(vehicleLoginResult);
@@ -73,7 +102,7 @@ public class WSServiceImpl implements WSService {
         return builder;
     }
 
-    public ResponseBuilder handleUploadInspectionResult(Object result) throws Exception {
+    public ResponseBuilder handleUploadInspectionResult(Object result) {
         ResponseBuilder builder = new ResponseBuilder();
         UploadInspectionResult uploadInspectionResult = JAXBUtils.xmlToBean(String.valueOf(result),UploadInspectionResult.class);
         boolean falseFlag = "0".equals(uploadInspectionResult.getStatus())||"false".equals(uploadInspectionResult.getStatus());

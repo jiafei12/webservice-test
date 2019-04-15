@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * xml工具类
+ * JAXB工具类
  *
  * @author liuyh
  * @date 2019/4/12 16:07
@@ -68,7 +68,7 @@ public class JAXBUtils {
      * 通过JAXB将bean根据注解转换为xml格式的字符串
      *
      * @param bean              根据bean格式需要转换为Xml格式的javaBean
-     * @param customizeFragment 自定义xml的声明文件, 传入null即为使用JAXB默认的头文件
+     * @param customizeFragment 自定义xml的声明文件, 传入null使用JAXB默认的头文件
      * @return 转换后的xml
      * @throws JAXBException
      */
@@ -87,13 +87,20 @@ public class JAXBUtils {
         return new String(xmlOutStream.toByteArray());
     }
 
-    public static <T> T xmlToBean(String xml, Class<T> clazz) throws Exception {
+    /**
+     * 将xml文件转换为javaBean(项目中用于处理远程调用的返回结果)
+     *
+     * @param xml   需转换的xml
+     * @param clazz 对应转换的javaBean
+     * @return
+     * @throws Exception
+     */
+    public static <T> T xmlToBean(String xml, Class<T> clazz) {
         try {
             Unmarshaller unmarshaller = MarshallerFactory.getUnmarshaller(clazz);
             if (unmarshaller == null) {
                 return null;
             }
-
       /*      StringReader reader = new StringReader(xml);
             SAXParserFactory sax = SAXParserFactory.newInstance();
             sax.setNamespaceAware(false);
@@ -103,11 +110,6 @@ public class JAXBUtils {
         } catch (JAXBException e) {
             throw new RuntimeException("xml toObj failed", e);
         }
-    }
-
-
-    public static void main(String[] args) {
-
     }
 }
 

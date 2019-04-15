@@ -14,8 +14,8 @@ import javax.xml.namespace.QName;
 public class WebServiceUtils {
     /**
      * @param wsdlUrl         wsdl的地址：http://localhost:8001/demo/HelloServiceDemoUrl?wsdl
-     * @param methodName      调用方法名称 selectOrderInfo
-     * @param targetNamespace 命名空间 http://service.limp.com/
+     * @param methodName      调用方法名称
+     * @param targetNamespace 命名空间
      * @throws Exception
      */
     public static Object dynamicCallWebServiceByCXF(String wsdlUrl, String methodName, String targetNamespace, Object[] params) throws Exception {
@@ -23,13 +23,15 @@ public class WebServiceUtils {
         JaxWsDynamicClientFactory factory = JaxWsDynamicClientFactory.newInstance();
         // 创建客户端连接
         Client client = factory.createClient(wsdlUrl);
+        //TODO: 远程WebService成功建立连接
         //创建QName来指定NameSpace和要调用的方法绑定方法
         QName opName = new QName(targetNamespace, methodName);
         Object[] result = new Object[]{};
         try {
             result = client.invoke(opName, params);
+            //TODO: 远程WebService方法调用成功
         } catch (Exception e) {
-            //TODD:记录日志??????????/如何做到上游捕捉到这个错误,抛出至service层面
+            //TODO: 如何做到上游捕捉到这个错误,抛出至service层面
             System.out.println("webService远程方法：" + methodName + "执行失败, 【原因】" + e.getMessage());
         }
         return result.length == 0 ? null : result[0];

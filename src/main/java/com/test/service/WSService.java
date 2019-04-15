@@ -33,5 +33,5 @@ public interface WSService {
      *                     7、柴油车OBD数据；8、外观检测）
      * @return ResponseBuilder 统一包装类型
      */
-    ResponseBuilder uploadInspectionResult(String token, String organizationNumber, Object object,int checkMethod) throws Exception;
+    ResponseBuilder uploadInspectionResult(String token, String organizationNumber, Object object,int checkMethod);
 }

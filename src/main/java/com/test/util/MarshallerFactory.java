@@ -13,16 +13,19 @@ import java.util.HashMap;
 
 /**
  * JABX
+ *
  * @author liuyh
  */
 public class MarshallerFactory {
+
     private final static HashMap<Class, JAXBContext> JAXB_CONTEXT_MAP = new HashMap();
 
     private MarshallerFactory() {
     }
+
     static {
         try {
-            // 想要进行的bean转换的类，可以写在这里，初始化到Map中
+            // 需转换的javaBean,可以写在这里, 初始化到Map中
             JAXB_CONTEXT_MAP.put(VehicleLoginDTO.class, JAXBContext.newInstance(VehicleLoginDTO.class));
             JAXB_CONTEXT_MAP.put(TwoSpeedIdleResultDTO.class, JAXBContext.newInstance(TwoSpeedIdleResultDTO.class));
             JAXB_CONTEXT_MAP.put(TwoSpeedIdleInfoDTO.class, JAXBContext.newInstance(TwoSpeedIdleInfoDTO.class));
@@ -52,9 +55,8 @@ public class MarshallerFactory {
             JAXB_CONTEXT_MAP.put(VehicleLoginResult.class, JAXBContext.newInstance(VehicleLoginResult.class));
             JAXB_CONTEXT_MAP.put(VehicleLoginReponse.class, JAXBContext.newInstance(VehicleLoginReponse.class));
             JAXB_CONTEXT_MAP.put(UploadInspectionResult.class, JAXBContext.newInstance(UploadInspectionResult.class));
-
         } catch (Exception e) {
-            // 打印日志
+            //TODO:打印日志
         }
     }
 
