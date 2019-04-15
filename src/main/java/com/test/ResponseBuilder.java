@@ -19,9 +19,9 @@ public class ResponseBuilder implements Serializable {
     /**
      * 返回码描述
      **/
-    public String msg;
+    public String message;
     /**
      * 响应数据
      **/
-    public T data;
+    public  T data;
 }
