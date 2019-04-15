@@ -44,7 +44,7 @@ public class WSServiceImpl implements WSService {
             builder.setCode(1);
             VehicleLoginReponse vehicleLoginReponse=new VehicleLoginReponse();
             BeanUtils.copyProperties(vehicleLoginResult,vehicleLoginReponse);
-           // builder.setData(vehicleLoginReponse);
+         //   builder.setData(vehicleLoginReponse);
         }
         return builder;
     }
