@@ -21,6 +21,4 @@ public class TwoSpeedIdleDTO {
     public TwoSpeedIdleResultDTO twoSpeedIdleResultDTO;
     @XmlElement(name = "process_data")
     public List<TwoSpeedIdleInfoDTO> twoSpeedIdleInfoDTOList;
-
-
 }

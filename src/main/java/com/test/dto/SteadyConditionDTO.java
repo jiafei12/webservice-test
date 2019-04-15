@@ -4,16 +4,21 @@ import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
  * 稳态工况数据
+ *
+ * @author liuyh
  */
-@XmlRootElement(name="result")
+@XmlRootElement(name = "result")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
 public class SteadyConditionDTO {
+    @XmlElement(name = "result_data")
     public SteadyConditionResultDTO steadyConditionResultDTO;
+    @XmlElement(name = "process_data")
     public List<SteadyConditionInfoDTO> steadyConditionInfoDTOList;
 }

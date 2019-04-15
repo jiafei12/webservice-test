@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * 稳态工况结果数据
  */
-@XmlRootElement(name = "result_data")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
 public class SteadyConditionResultDTO {
@@ -57,13 +56,13 @@ public class SteadyConditionResultDTO {
     /**
      * 车辆编码
      */
-    @XmlElement(name="vehicle_id")
+    @XmlElement(name = "vehicle_id")
     public String vehicleCode;
 
     /**
      * 车架号
      */
-    @XmlElement(name="vin")
+    @XmlElement(name = "vin")
     public String vin;
 
     /**
@@ -172,5 +171,106 @@ public class SteadyConditionResultDTO {
      */
     @XmlElement(name = "no_5025_limit")
     public Integer no5025limit;
+
+    /**
+     * 5025 工况 no 检测结果：
+     * 0：不合格 1：合格
+     */
+    @XmlElement(name = "no_5025_passed")
+    public String no5025Passed;
+
+    /**
+     * 5025 加载总功率（kw）
+     */
+    @XmlElement(name = "power_5025")
+    public Integer power5025;
+
+    /**
+     * 5025 转速结果（r/min）
+     */
+    @XmlElement(name = "rev_5025")
+    public Integer rev5025;
+
+    /**
+     * 5025 lambda 值
+     */
+    @XmlElement(name = "lambda_5025")
+    public Integer lambda5025;
+
+    /**
+     * 2540 co 测量结果（%）
+     */
+    @XmlElement(name = "co_2540")
+    public Integer co2540;
+
+    /**
+     * 2540 工 况 co 检测限值 (10-6)
+     */
+    @XmlElement(name = "co_2540_limit")
+    public Integer co2540limit;
+
+    /**
+     * 2540 工况 co 检测结果：
+     * 0：不合格 1：合格
+     */
+    @XmlElement(name = "hc_2540_passed")
+    public String hc2540Passed;
+
+    /**
+     * 2540 hc 测量结果(10-6)
+     */
+    @XmlElement(name = "hc_2540")
+    public Integer hc2540;
+
+    /**
+     * 2540 工 况 hc 检测限值(10-6)
+     */
+    @XmlElement(name = "hc_2540_limit")
+    public Integer hc2540Limit;
+
+    /**
+     * 2540 no 测量结果(10-6)
+     */
+    @XmlElement(name = "no2540")
+    public Integer no_2540;
+
+    /**
+     * 2540 工 况 no 检测限值(10-6)
+     */
+    @XmlElement(name = "no_2540_limit")
+    public Integer no2540limit;
+
+    /**
+     * 2540 工况 no
+     * 检测结果： 0：不合格 1：合格
+     */
+    @XmlElement(name = "no_2540_passed")
+    public String no2540Passed;
+
+    /**
+     * 2540 加载总功率（kw）
+     */
+    @XmlElement(name = "power_2540")
+    public Integer power2540;
+
+    /**
+     * 2540 转速结果（r/min）
+     */
+    @XmlElement(name = "rev_2540")
+    public Integer rev2540;
+
+    /**
+     * 2540 lambda 值
+     */
+    @XmlElement(name = "lambda_2540")
+    public Integer lambda2540;
+
+    /**
+     * 检测结果：
+     * 0：不合格 1：合格 2：中止 3：无效
+     */
+    @XmlElement(name = "passed")
+    public Integer checkResult;
+
 
 }
