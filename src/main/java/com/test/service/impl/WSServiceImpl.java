@@ -11,7 +11,6 @@ import com.test.dto.VehicleLoginDTO;
 import com.test.service.WSService;
 import com.test.util.JAXBUtils;
 import com.test.util.WebServiceUtils;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
@@ -54,8 +53,6 @@ public class WSServiceImpl implements WSService {
         String xmlParams = JAXBUtils.beanToXml(bean, xmlFragment);
         System.out.println(xmlParams);
         Object result = WebServiceUtils.dynamicCallWebServiceByCXF(wsdlUrl, vehicleLoginMethodName, targetNamespace, new Object[]{token, organizationNumber, xmlParams, checkMethod});
-        //TODO：处理结果, 将每个返回值对应成javabean
-        System.out.println(result.toString());
         return handleUploadInspectionResult(result);
     }
 
