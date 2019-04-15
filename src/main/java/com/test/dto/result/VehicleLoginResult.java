@@ -1,4 +1,4 @@
-package com.test.dto.Result;
+package com.test.dto.result;
 
 import lombok.Data;
 
@@ -7,6 +7,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+
+/**
+ * 车辆登录远程调用方法返回
+ *
+ * @author liuyh
+ */
 @Data
 @XmlRootElement(name = "response")
 @XmlAccessorType(XmlAccessType.FIELD)

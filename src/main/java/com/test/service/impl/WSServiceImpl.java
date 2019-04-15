@@ -1,26 +1,40 @@
 package com.test.service.impl;
 
 import com.test.ResponseBuilder;
-import com.test.dto.Result.VehicleLoginReponse;
-import com.test.dto.Result.VehicleLoginResult;
+import com.test.dto.result.VehicleLoginReponse;
+import com.test.dto.result.VehicleLoginResult;
 import com.test.dto.VehicleLoginDTO;
 import com.test.service.WSService;
 import com.test.util.JAXBUtils;
 import com.test.util.WebServiceUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.BeanUtils;
 
+import javax.xml.bind.JAXBException;
+import java.io.IOException;
 
 /**
  * @author liuyh
- * @description: TODO
  * @date 2019/4/1114:22
  */
 public class WSServiceImpl implements WSService {
     //TODO: 读取配置文件
-    private static String wsdlUrl = "http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl";
-    private static String vehicleLoginMethodName = "vehiclelogin";
-    private static String targetNamespace = "http://synToCity.synchrodata.daniu.com/";
-    private static String xmlFragment = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+    /**
+     * webService wsdlUrl（由厂商负责提供）
+     */
+    private String wsdlUrl = "http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl";
+    /**
+     * 方法名称
+     */
+    private String vehicleLoginMethodName = "vehiclelogin";
+    /**
+     * 对应命名空间, wsdl中的 targetNamespace
+     */
+    private String targetNamespace = "http://synToCity.synchrodata.daniu.com/";
+    /**
+     * xml声明头文件
+     */
+    private String xmlFragment = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
     @Override
     //TODO:处理下层抛出的异常，记录日志
@@ -28,23 +42,31 @@ public class WSServiceImpl implements WSService {
         String xmlParams = JAXBUtils.beanToXml(vehicleLoginDTO, xmlFragment);
         Object result = WebServiceUtils.dynamicCallWebServiceByCXF(wsdlUrl, vehicleLoginMethodName, targetNamespace, new Object[]{xmlParams});
         //TODO：处理结果, 将每个返回值对应成javabean
-        ResponseBuilder builder = handleVehicleLoginResult(result);
-        return builder;
+        return handleVehicleLoginResult(result);
+    }
+
+    @Override
+    public ResponseBuilder uploadInspectionResult(String token, String organizationNumber, Class<T> clazz, int checkMethod) throws Exception {
+        String xmlParams = JAXBUtils.beanToXml(clazz.getName(), xmlFragment);
+        Object result = WebServiceUtils.dynamicCallWebServiceByCXF(wsdlUrl, vehicleLoginMethodName, targetNamespace, new Object[]{token, organizationNumber, xmlParams, checkMethod});
+        //TODO：处理结果, 将每个返回值对应成javabean
+        return handleVehicleLoginResult(result);
     }
 
     private ResponseBuilder handleVehicleLoginResult(Object result) throws Exception {
         ResponseBuilder builder = new ResponseBuilder();
+        System.out.println(result);
         VehicleLoginResult vehicleLoginResult = JAXBUtils.xmlToBean(String.valueOf(result), VehicleLoginResult.class);
-        //  builder=WSServiceImpl.handleMethodResult(vehicleLoginReponse);
-        boolean falseFlag = "0".equals(vehicleLoginResult.getStatus()) ? true : false;
+        System.out.println(vehicleLoginResult);
+        boolean falseFlag = "0".equals(vehicleLoginResult.getStatus());
         if (falseFlag) {
             builder.setCode(0);
             builder.setMessage(vehicleLoginResult.getMessage());
         } else {
             builder.setCode(1);
-            VehicleLoginReponse vehicleLoginReponse=new VehicleLoginReponse();
-            BeanUtils.copyProperties(vehicleLoginResult,vehicleLoginReponse);
-         //   builder.setData(vehicleLoginReponse);
+            VehicleLoginReponse vehicleLoginReponse = new VehicleLoginReponse();
+            BeanUtils.copyProperties(vehicleLoginResult, vehicleLoginReponse);
+            builder.setData(vehicleLoginReponse);
         }
         return builder;
     }
@@ -94,9 +116,6 @@ public class WSServiceImpl implements WSService {
             //paramsMap.put(field.getAnnotation(XStreamAlias.class).value(),clazz.);
         }
     }
-
-
-
     */
     /*private static String getFiledValue(String filedName,Class clazz,Object classObject) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         byte[] items = filedName.getBytes();
@@ -119,10 +138,11 @@ public class WSServiceImpl implements WSService {
 //    }
     public static void main(String[] args) throws Exception {
         WSServiceImpl wsService = new WSServiceImpl();
-        VehicleLoginDTO vehicleLoginDTO = new VehicleLoginDTO();
+     /*   VehicleLoginDTO vehicleLoginDTO = new VehicleLoginDTO();
         vehicleLoginDTO.setBenchmarkQuality("31");
         ResponseBuilder builder = wsService.vehicleLogin(vehicleLoginDTO);
         System.out.println(builder.getCode());
-        System.out.println(builder.getData());
+        System.out.println(builder.getData());*/
+
     }
 }

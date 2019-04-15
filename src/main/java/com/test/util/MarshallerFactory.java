@@ -1,10 +1,11 @@
 package com.test.util;
 
-import com.test.dto.Result.VehicleLoginReponse;
+import com.test.dto.result.VehicleLoginReponse;
 import com.test.dto.TwoSpeedIdleDTO;
 import com.test.dto.TwoSpeedIdleInfoDTO;
 import com.test.dto.TwoSpeedIdleResultDTO;
 import com.test.dto.VehicleLoginDTO;
+import com.test.dto.result.VehicleLoginResult;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -25,8 +26,7 @@ public class MarshallerFactory {
             JAXB_CONTEXT_MAP.put(TwoSpeedIdleResultDTO.class, JAXBContext.newInstance(TwoSpeedIdleResultDTO.class));
             JAXB_CONTEXT_MAP.put(TwoSpeedIdleInfoDTO.class, JAXBContext.newInstance(TwoSpeedIdleInfoDTO.class));
             JAXB_CONTEXT_MAP.put(TwoSpeedIdleDTO.class, JAXBContext.newInstance(TwoSpeedIdleDTO.class));
-            JAXB_CONTEXT_MAP.put(VehicleLoginReponse.class, JAXBContext.newInstance(VehicleLoginReponse.class));
-
+            JAXB_CONTEXT_MAP.put(VehicleLoginResult.class, JAXBContext.newInstance(VehicleLoginResult.class));
         } catch (Exception e) {
             // 打印日志
         }

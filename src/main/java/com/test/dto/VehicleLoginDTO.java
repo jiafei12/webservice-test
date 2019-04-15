@@ -33,7 +33,7 @@ public class VehicleLoginDTO implements Serializable {
      * 登录机构
      */
     @XmlElement(name = "unitid")
-    public String loginInstitution;
+    public String organizationNumber;
     /**
      * 车牌
      */

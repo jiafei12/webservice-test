@@ -40,7 +40,7 @@ public class WebServiceUtils {
                 "http://impl.synToCity.synchrodata.daniu.com/", new Object[]{});**/
 
         // 车辆检测登陆测试
-       Object[] params = new Object[]{"<?xml version=\"1.0\" encoding=\"utf-8\" ?><request>" +
+      Object[] params = new Object[]{"<?xml version=\"1.0\" encoding=\"utf-8\" ?><request>" +
                 "<uid> MJ </uid>\n" +
                 "<pwd> 123456 </pwd>\n" +
                 "<unitid>32020022</unitid>\n" +
@@ -94,6 +94,7 @@ public class WebServiceUtils {
        Object tt=WebServiceUtils.dynamicCallWebServiceByCXF("http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl", "vehiclelogin",
                 "http://synToCity.synchrodata.daniu.com/", params);
         System.out.println(tt.toString());
+
         //获取待检测列表
         /*Object[] params1= new Object[]{"","32020022"};
         WebServiceUtils.dynamicCallWebServiceByCXF("http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl", "GetCheckList",
@@ -104,76 +105,77 @@ public class WebServiceUtils {
         WebServiceUtils.dynamicCallWebServiceByCXF("http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl", "GetVehicle",
                 "http://synToCity.synchrodata.daniu.com/", params2);*/
 
-        //上传检测结果
-//        Object[] params3 = new Object[]{"",
-//                "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
-//                        "<result>\n" +
-//                        "<result_data>\n" +
-//                        "<check_id></check_id>\n" +
-//                        "<check_type></check_type>\n" +
-//                        "<city_code></city_code>\n" +
-//                        "<unit_id></unit_id>\n" +
-//                        "<line_id> </line_id>\n" +
-//                        "<user_id> </user_id>\n" +
-//                        "<vehicle_id></vehicle_id>\n" +
-//                        "<vin></vin>\n" +
-//                        "<plate></plate>\n" +
-//                        "<check_date> </check_date>\n" +
-//                        "<period_start_date></period_start_date>\n" +
-//                        "<period_end_date></period_end_date>\n" +
-//                        "<start_time></start_time>\n" +
-//                        "<end_time></end_time>\n" +
-//                        "<temperature> </temperature>\n" +
-//                        "<pressure> </pressure>\n" +
-//                        "<humidity> </humidity>\n" +
-//                        "<lambda_limit_l></lambda_limit_l>\n" +
-//                        "<lambda_limit_h></lambda_limit_h>\n" +
-//                        "<lambda> </lambda>\n" +
-//                        "<lambda_passed></lambda_passed>\n" +
-//                        "<low_co_limit></low_co_limit>\n" +
-//                        "<low_co></low_co>\n" +
-//                        "<low_co_passed></low_co_passed>\n" +
-//                        "<low_hc_limit></low_hc_limit>\n" +
-//                        "<low_hc></low_hc>\n" +
-//                        "<low_hc_passed></low_hc_passed>\n" +
-//                        "<high_co_limit> </high_co_limit>\n" +
-//                        "<high_co></high_co>\n" +
-//                        "<high_co_passed> </high_co_passed>\n" +
-//                        "<high_hc_limit></high_hc_limit>\n" +
-//                        "<high_hc></high_hc>\n" +
-//                        "<high_hc_passed></high_hc_passed>\n" +
-//                        "<passed></passed>\n" +
-//                        "</result_data>\n" +
-//                        "/*过程数据，可以有多个条 process_data*/\n" +
-//                        "<process_data>\n" +
-//                        "<time></time>\n" +
-//                        "<idle_type></idle_type>\n" +
-//                        "<time_no> </time_no>\n" +
-//                        "<hc></hc>\n" +
-//                        "<co></co>\n" +
-//                        " <ywssz></ywssz>\n" +
-//                        "<hjwd></hjwd>\n" +
-//                        "<xdsd></xdsd>\n" +
-//                        "<dqy></dqy>\n" +
-//                        "<o2></o2>\n" +
-//                        "<co2> </co2>\n" +
-//                        "<p_lambda></p_lambda>\n" +
-//                        "<rpm></rpm>\n" +
-//                        "</process_data>\n" +
-//                        "<process_data>\n" +
-//                        "<time></time>\n" +
-//                        "<idle_type></idle_type>\n" +
-//                        "<time_no> </time_no>\n" +
-//                        "<hc></hc>\n" +
-//                        "<co></co>\n" +
-//                        "<o2></o2>\n" +
-//                        "<co2> </co2>\n" +
-//                        "<p_lambda></p_lambda>\n" +
-//                        "<rpm></rpm>\n" +
-//                        "</process_data>\n" +
-//                        "</result>"
-//                , "41414141", 1};
-//        WebServiceUtils.dynamicCallWebServiceByCXF("http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl", "UploadInspectionResult",
-//                "http://synToCity.synchrodata.daniu.com/", params3);
+
+        Object[] params3 = new Object[]{"","3232323",
+        "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+                "<result>\n" +
+                "<result_data>\n" +
+                "<check_id></check_id>\n" +
+                "<check_type></check_type>\n" +
+                "<city_code></city_code>\n" +
+                "<unit_id></unit_id>\n" +
+                "<line_id> </line_id>\n" +
+                "<user_id> </user_id>\n" +
+                "<vehicle_id></vehicle_id>\n" +
+                "<vin></vin>\n" +
+                "<plate></plate>\n" +
+                "<check_date> </check_date>\n" +
+                "<period_start_date></period_start_date>\n" +
+                "<period_end_date></period_end_date>\n" +
+                "<start_time></start_time>\n" +
+                "<end_time></end_time>\n" +
+                "<temperature> </temperature>\n" +
+                "<pressure> </pressure>\n" +
+                "<humidity> </humidity>\n" +
+                "<lambda_limit_l></lambda_limit_l>\n" +
+                "<lambda_limit_h></lambda_limit_h>\n" +
+                "<lambda> </lambda>\n" +
+                "<lambda_passed></lambda_passed>\n" +
+                "<low_co_limit></low_co_limit>\n" +
+                "<low_co></low_co>\n" +
+                "<low_co_passed></low_co_passed>\n" +
+                "<low_hc_limit></low_hc_limit>\n" +
+                "<low_hc></low_hc>\n" +
+                "<low_hc_passed></low_hc_passed>\n" +
+                "<high_co_limit> </high_co_limit>\n" +
+                "<high_co></high_co>\n" +
+                "<high_co_passed> </high_co_passed>\n" +
+                "<high_hc_limit></high_hc_limit>\n" +
+                "<high_hc></high_hc>\n" +
+                "<high_hc_passed></high_hc_passed>\n" +
+                "<passed></passed>\n" +
+                "</result_data>\n" +
+                "/*过程数据，可以有多个条 process_data*/\n" +
+                "<process_data>\n" +
+                "<time></time>\n" +
+                "<idle_type></idle_type>\n" +
+                "<time_no> </time_no>\n" +
+                "<hc></hc>\n" +
+                "<co></co>\n" +
+                " <ywssz></ywssz>\n" +
+                "<hjwd></hjwd>\n" +
+                "<xdsd></xdsd>\n" +
+                "<dqy></dqy>\n" +
+                "<o2></o2>\n" +
+                "<co2> </co2>\n" +
+                "<p_lambda></p_lambda>\n" +
+                "<rpm></rpm>\n" +
+                "</process_data>\n" +
+                "<process_data>\n" +
+                "<time></time>\n" +
+                "<idle_type></idle_type>\n" +
+                "<time_no> </time_no>\n" +
+                "<hc></hc>\n" +
+                "<co></co>\n" +
+                "<o2></o2>\n" +
+                "<co2> </co2>\n" +
+                "<p_lambda></p_lambda>\n" +
+                "<rpm></rpm>\n" +
+                "</process_data>\n" +
+                "</result>"
+                , 1};
+       Object result= WebServiceUtils.dynamicCallWebServiceByCXF("http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl", "UploadInspectionResult",
+                "http://synToCity.synchrodata.daniu.com/", params3);
+        System.out.println(result.toString());
     }
 }

@@ -1,22 +1,7 @@
 package com.test.util;
 
-import com.test.dto.*;
-import com.test.dto.Result.VehicleLoginReponse;
-import com.test.helper.MarshallerListener;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.CompactWriter;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Date;
+import com.test.dto.VehicleLoginDTO;
+import com.test.service.impl.WSServiceImpl;
 
 /**
  * @author DELL

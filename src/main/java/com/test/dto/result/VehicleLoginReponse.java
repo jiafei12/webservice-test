@@ -1,7 +1,10 @@
-package com.test.dto.Result;
+package com.test.dto.result;
 
 import lombok.Data;
 
+/**
+ *
+ */
 @Data
 public class VehicleLoginReponse {
     public String checkNumber;
