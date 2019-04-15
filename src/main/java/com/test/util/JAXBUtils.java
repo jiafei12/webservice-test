@@ -1,11 +1,16 @@
 package com.test.util;
 
 import com.test.helper.MarshallerListener;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.Source;
+import javax.xml.transform.sax.SAXSource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
@@ -88,6 +93,12 @@ public class JAXBUtils {
             if (unmarshaller == null) {
                 return null;
             }
+
+      /*      StringReader reader = new StringReader(xml);
+            SAXParserFactory sax = SAXParserFactory.newInstance();
+            sax.setNamespaceAware(false);
+            XMLReader xmlReader = sax.newSAXParser().getXMLReader();
+            Source source = new SAXSource(xmlReader, new InputSource(reader));*/
             return (T) unmarshaller.unmarshal(new StringReader(xml));
         } catch (JAXBException e) {
             throw new RuntimeException("xml toObj failed", e);

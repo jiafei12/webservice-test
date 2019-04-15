@@ -1,5 +1,7 @@
 package com.test.util;
 
+import com.test.service.WSService;
+import com.test.service.impl.WSServiceImpl;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 
@@ -93,7 +95,7 @@ public class WebServiceUtils {
                 "</request>"};
        Object tt=WebServiceUtils.dynamicCallWebServiceByCXF("http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl", "vehiclelogin",
                 "http://synToCity.synchrodata.daniu.com/", params);
-        System.out.println(tt.toString());
+       // System.out.println(tt.toString());
 
         //获取待检测列表
         /*Object[] params1= new Object[]{"","32020022"};
@@ -176,6 +178,8 @@ public class WebServiceUtils {
                 , 1};
        Object result= WebServiceUtils.dynamicCallWebServiceByCXF("http://122.112.209.3:9086/synchrodata/webservice/SynTocity?wsdl", "UploadInspectionResult",
                 "http://synToCity.synchrodata.daniu.com/", params3);
+        WSServiceImpl wsService=new WSServiceImpl();
         System.out.println(result.toString());
+        System.out.println(wsService.handleUploadInspectionResult(result));
     }
 }

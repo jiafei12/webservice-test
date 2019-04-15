@@ -1,5 +1,6 @@
 package com.test.util;
 
+import com.test.dto.result.UploadInspectionResult;
 import com.test.dto.result.VehicleLoginReponse;
 import com.test.dto.TwoSpeedIdleDTO;
 import com.test.dto.TwoSpeedIdleInfoDTO;
@@ -27,6 +28,7 @@ public class MarshallerFactory {
             JAXB_CONTEXT_MAP.put(TwoSpeedIdleInfoDTO.class, JAXBContext.newInstance(TwoSpeedIdleInfoDTO.class));
             JAXB_CONTEXT_MAP.put(TwoSpeedIdleDTO.class, JAXBContext.newInstance(TwoSpeedIdleDTO.class));
             JAXB_CONTEXT_MAP.put(VehicleLoginResult.class, JAXBContext.newInstance(VehicleLoginResult.class));
+            JAXB_CONTEXT_MAP.put(UploadInspectionResult.class, JAXBContext.newInstance(UploadInspectionResult.class));
         } catch (Exception e) {
             // 打印日志
         }
@@ -37,7 +39,6 @@ public class MarshallerFactory {
         if (jaxbContext == null) {
             return null;
         }
-
         return jaxbContext.createMarshaller();
     }
 

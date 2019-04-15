@@ -1,6 +1,10 @@
 package com.test.service.impl;
 
 import com.test.ResponseBuilder;
+import com.test.dto.TwoSpeedIdleDTO;
+import com.test.dto.TwoSpeedIdleInfoDTO;
+import com.test.dto.TwoSpeedIdleResultDTO;
+import com.test.dto.result.UploadInspectionResult;
 import com.test.dto.result.VehicleLoginReponse;
 import com.test.dto.result.VehicleLoginResult;
 import com.test.dto.VehicleLoginDTO;
@@ -10,8 +14,8 @@ import com.test.util.WebServiceUtils;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.BeanUtils;
 
-import javax.xml.bind.JAXBException;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author liuyh
@@ -46,19 +50,20 @@ public class WSServiceImpl implements WSService {
     }
 
     @Override
-    public ResponseBuilder uploadInspectionResult(String token, String organizationNumber, Class<T> clazz, int checkMethod) throws Exception {
-        String xmlParams = JAXBUtils.beanToXml(clazz.getName(), xmlFragment);
+    public ResponseBuilder uploadInspectionResult(String token, String organizationNumber, Object bean, int checkMethod) throws Exception {
+        String xmlParams = JAXBUtils.beanToXml(bean, xmlFragment);
+        System.out.println(xmlParams);
         Object result = WebServiceUtils.dynamicCallWebServiceByCXF(wsdlUrl, vehicleLoginMethodName, targetNamespace, new Object[]{token, organizationNumber, xmlParams, checkMethod});
         //TODO：处理结果, 将每个返回值对应成javabean
-        return handleVehicleLoginResult(result);
+        System.out.println(result.toString());
+        return handleUploadInspectionResult(result);
     }
 
     private ResponseBuilder handleVehicleLoginResult(Object result) throws Exception {
         ResponseBuilder builder = new ResponseBuilder();
-        System.out.println(result);
         VehicleLoginResult vehicleLoginResult = JAXBUtils.xmlToBean(String.valueOf(result), VehicleLoginResult.class);
         System.out.println(vehicleLoginResult);
-        boolean falseFlag = "0".equals(vehicleLoginResult.getStatus());
+        boolean falseFlag = "0".equals(vehicleLoginResult.getStatus())||"false".equals(vehicleLoginResult.getStatus());
         if (falseFlag) {
             builder.setCode(0);
             builder.setMessage(vehicleLoginResult.getMessage());
@@ -71,12 +76,21 @@ public class WSServiceImpl implements WSService {
         return builder;
     }
 
-    /**
-     * 封装统一返回值结果
-     *
-     * @param args
-     * @throws Exception
-     */
+    public ResponseBuilder handleUploadInspectionResult(Object result) throws Exception {
+        ResponseBuilder builder = new ResponseBuilder();
+        UploadInspectionResult uploadInspectionResult = JAXBUtils.xmlToBean(String.valueOf(result),UploadInspectionResult.class);
+        boolean falseFlag = "0".equals(uploadInspectionResult.getStatus())||"false".equals(uploadInspectionResult.getStatus());
+        if (falseFlag) {
+            builder.setCode(0);
+            builder.setMessage(uploadInspectionResult.getMessage());
+        } else {
+            builder.setCode(1);
+            builder.setData(null);
+        }
+        return builder;
+    }
+
+
     /*private static ResponseBuilder handleMethodResult(Object clazz) throws IllegalAccessException {
         ResponseBuilder builder = new ResponseBuilder();
         Field[] fields = clazz.getClass().getDeclaredFields();
@@ -143,6 +157,21 @@ public class WSServiceImpl implements WSService {
         ResponseBuilder builder = wsService.vehicleLogin(vehicleLoginDTO);
         System.out.println(builder.getCode());
         System.out.println(builder.getData());*/
+        TwoSpeedIdleDTO twoSpeedIdleDTO=new TwoSpeedIdleDTO();
+        TwoSpeedIdleResultDTO twoSpeedIdleResultDTO=new TwoSpeedIdleResultDTO();
+       // twoSpeedIdleResultDTO.setAreaCode("213131");
+        List<TwoSpeedIdleInfoDTO> twoSpeedIdleInfoDTOList=new ArrayList();
+        twoSpeedIdleResultDTO.setAmbientTemperature(23.6);
+        TwoSpeedIdleInfoDTO twoSpeedIdleInfoDTO=new TwoSpeedIdleInfoDTO();
+       // twoSpeedIdleInfoDTO.setAtomsphere(424.3);
+        twoSpeedIdleInfoDTOList.add(twoSpeedIdleInfoDTO);
+        TwoSpeedIdleInfoDTO twoSpeedIdleInfoDTO1=new TwoSpeedIdleInfoDTO();
+     //  twoSpeedIdleInfoDTO1.setOilTemperature(4242);
+        twoSpeedIdleInfoDTOList.add(twoSpeedIdleInfoDTO);
+        twoSpeedIdleDTO.setTwoSpeedIdleInfoDTOList(twoSpeedIdleInfoDTOList);
+       twoSpeedIdleDTO.setTwoSpeedIdleResultDTO(twoSpeedIdleResultDTO);
+    //    System.out.println( JAXBUtils.beanToXml(twoSpeedIdleDTO,"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"));
+        wsService.uploadInspectionResult(null,"3232323", twoSpeedIdleDTO,1);
 
     }
 }
